@@ -5,7 +5,7 @@ export async function uploadImage(file: File): Promise<string | null> {
   const fileName = `${Date.now()}_${file.name}`;
 
   const { data, error } = await supabase.storage
-    .from("project-images")
+    .from("book-images")
     .upload(fileName, file);
 
   if (error) {
@@ -15,7 +15,7 @@ export async function uploadImage(file: File): Promise<string | null> {
 
   // Get public URL
   const { data: publicUrlData } = supabase.storage
-    .from("project-images")
+    .from("book-images")
     .getPublicUrl(fileName);
 
   return publicUrlData?.publicUrl || null;

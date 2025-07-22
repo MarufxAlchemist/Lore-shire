@@ -5,22 +5,23 @@ import CardContent from '@mui/joy/CardContent';
 import Stack from '@mui/joy/Stack';
 import Typography from '@mui/joy/Typography';
 import IconButton from '@mui/joy/IconButton';
-import Link from 'next/link'; // Make sure to import Link from 'next/link'
+import Link from 'next/link';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import Star from '@mui/icons-material/Star';
 import Button from '@mui/joy/Button';
 import Chip from '@mui/joy/Chip';
-import { Book } from '@/types/book';
 import Box from '@mui/joy/Box';
-import { retrieveUserFromUsername } from '@/services/UserService';
-import { User } from '@/types/user';
-import ChatToExchange from '@/features/books/ChatToExchange';
-import { useAuthContext } from '@/context/AuthContext';
 import Tooltip from '@mui/joy/Tooltip';
 import { CssVarsProvider } from '@mui/joy/styles';
-import theme from "@/theme";
-import { CssBaseline } from "@mui/joy";
+import { CssBaseline } from '@mui/joy';
+
+import { Book } from '@/types/book';
+import { User } from '@/types/user';
+import { useAuthContext } from '@/context/AuthContext';
+import { retrieveUserFromUsername } from '@/services/UserService';
+import ChatToExchange from '@/features/books/ChatToExchange';
 import MarkAsExchanged from '@/features/books/MarkAsExchanged';
+import theme from '@/theme';
 
 type BookCardProps = Book & {
   liked?: boolean;
@@ -28,29 +29,30 @@ type BookCardProps = Book & {
 };
 
 export default function BookCard(props: BookCardProps) {
-  const { 
-    category, 
-    title, 
-    author, 
-    liked = false, 
-    image, 
-    location, 
-    rating, 
-    ownerUsername, 
-    onLike, 
+  const {
+    category,
+    title,
+    author,
+    liked = false,
+    image,
+    location,
+    rating,
+    ownerUsername,
+    onLike,
   } = props;
 
-  const { user } = useAuthContext() as { user: User };
-
+  const { user } = useAuthContext() || {};
   const [isLiked, setIsLiked] = React.useState(liked);
   const [owner, setOwner] = React.useState<User | null>(null);
-  const [openCreateChat, setOpenCreateChat] = React.useState<boolean>(false);
+  const [openCreateChat, setOpenCreateChat] = React.useState(false);
 
   const handleLikeClick = () => {
     setIsLiked((prev) => !prev);
-    if (onLike) {
-      onLike(props);
-    }
+    if (onLike) onLike(props);
+  };
+
+  const handleCloseCreateChat = () => {
+    setOpenCreateChat(false);
   };
 
   React.useEffect(() => {
@@ -60,10 +62,6 @@ export default function BookCard(props: BookCardProps) {
     };
     fetchOwner();
   }, [ownerUsername]);
-
-  const handleCloseCreateChat = () => {
-    setOpenCreateChat(false);
-  };
 
   return (
     <CssVarsProvider theme={theme}>
@@ -95,22 +93,35 @@ export default function BookCard(props: BookCardProps) {
 
         <CardContent sx={{ flex: 1 }}>
           <Stack spacing={1} alignItems="flex-start">
-            <Chip variant='outlined'>{category}</Chip>
+            <Chip variant="outlined">{category}</Chip>
             <Typography level="title-md" noWrap>
-                {title}
+              {title}
             </Typography>
             <Typography level="body-sm" sx={{ fontWeight: '600' }} noWrap>
               by {author}
             </Typography>
             <Stack direction="row" spacing={0.5}>
               {[...Array(5)].map((_, index) => (
-                <Star key={index} sx={{ color: index < Math.floor(rating) ? 'warning.400' : 'warning.200' }} />
+                <Star
+                  key={index}
+                  sx={{
+                    color: index < Math.floor(rating) ? 'warning.400' : 'warning.200',
+                  }}
+                />
               ))}
             </Stack>
           </Stack>
         </CardContent>
 
-        <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', p: 2, minWidth: 160 }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'space-between',
+            p: 2,
+            minWidth: 160,
+          }}
+        >
           <IconButton
             variant="plain"
             size="sm"
@@ -121,26 +132,28 @@ export default function BookCard(props: BookCardProps) {
             <FavoriteRoundedIcon />
           </IconButton>
 
-          <Box 
-            sx={{ display: "flex", justifyContent: "right" }}
-            component={Link} // Change to Link for user profile
+          <Box
+            sx={{ display: 'flex', justifyContent: 'right' }}
+            component={Link}
             href={ownerUsername ? `/user/${ownerUsername}` : '/home'}
           >
             <Typography level="body-xs" sx={{ color: 'text.tertiary' }} noWrap>
-              Listed by 
+              Listed by
             </Typography>
-            <Typography level="title-sm" paddingLeft={1}>{ownerUsername}</Typography>
+            <Typography level="title-sm" paddingLeft={1}>
+              {ownerUsername}
+            </Typography>
           </Box>
 
-          <Box sx={{ display: "flex", justifyContent: "right" }}>
+          <Box sx={{ display: 'flex', justifyContent: 'right' }}>
             <Typography level="body-xs" noWrap paddingTop={1} sx={{ color: 'text.primary' }}>
               {location}
             </Typography>
           </Box>
 
-          <Box sx={{ display: "flex", justifyContent: "right" }}>
-            {owner && user && owner.username !== user.username ? (
-              <Tooltip title={`Chat with ${ownerUsername}`} arrow> 
+          <Box sx={{ display: 'flex', justifyContent: 'right' }}>
+            {owner?.username && user?.username && owner.username !== user.username ? (
+              <Tooltip title={`Chat with ${ownerUsername}`} arrow>
                 <Link href="/messages" passHref>
                   <Button
                     variant="soft"
@@ -157,12 +170,12 @@ export default function BookCard(props: BookCardProps) {
           </Box>
         </Box>
 
-        {owner && (
-          <ChatToExchange 
+        {owner && user && (
+          <ChatToExchange
             user={user}
-            open={openCreateChat} 
-            onClose={handleCloseCreateChat} 
-            setSelectedChat={() => {}} 
+            open={openCreateChat}
+            onClose={handleCloseCreateChat}
+            setSelectedChat={() => {}}
             owner={owner}
           />
         )}
