@@ -76,7 +76,7 @@ export default function SignInPage() {
           }}
         >
           <Link href="/">
-            <Image src="/logo.svg" alt="Logo" width={350} height={150} />
+            <Image src="/Lore-shire.svg" alt="Loreshire Logo" width={350} height={150} />
           </Link>
 
           <Typography level="h3" marginTop={3}>

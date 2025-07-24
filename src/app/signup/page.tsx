@@ -127,8 +127,8 @@ function Page() {
                 >
                     <Link href="/">
                         <Image
-                            src="/logo.svg"
-                            alt="Logo"
+                            src="/Lore-shire.svg"
+                            alt="Loreshire Logo"
                             width={350}
                             height={150}
                             priority

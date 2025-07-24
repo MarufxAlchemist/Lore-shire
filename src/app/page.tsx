@@ -30,8 +30,8 @@ export default function LandingPage() {
         {/* Logo */}
         <Box sx={{ mb: 4 }}>
           <Image
-            src="/logo.svg"
-            alt="BookLoop Logo"
+            src="/Lore-shire.svg"
+            alt="Loreshire Logo"
             width={400}
             height={200}
             priority
