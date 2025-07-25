@@ -1,31 +1,32 @@
-// src/app/layout.tsx
-import { SpeedInsights } from "@vercel/speed-insights/next";
+import { SpeedInsights } from "@vercel/speed-insights/next"
+import { AuthContextProvider } from '@/context/AuthContext';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import React from 'react';
+import React, { type JSX } from 'react';
 import Header from '@/components/Header';
 import theme from '@/theme';
 import { CssVarsProvider } from '@mui/joy/styles';
-import { AuthProvider } from '@/context/AuthContext'; // ✅ Auth Context
 
+// Load the Inter font with 'latin' subset
 const inter = Inter({ subsets: ['latin'] });
 
+// Metadata for the application
 export const metadata = {
   title: 'Lore shire',
   description: 'A book exchange platform for everyone.',
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+// Root layout component for the application
+export default function RootLayout({ children }: { children: React.ReactNode }): JSX.Element {
   return (
     <html lang="en" className={inter.className}>
       <head />
       <body>
         <CssVarsProvider theme={theme}>
-          <AuthProvider> {/* ✅ Wrap entire app in AuthProvider */}
-            <Header />     {/* ✅ Now has access to auth context */}
-            {children}     {/* ✅ Pages/components can access context */}
-          </AuthProvider>
-          <SpeedInsights />
+          <Header />
+          <AuthContextProvider>
+            {children}
+          </AuthContextProvider>
         </CssVarsProvider>
       </body>
     </html>

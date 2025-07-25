@@ -1,78 +1,92 @@
-// src/context/AuthContext.tsx
 'use client';
+import { createContext, useContext, useEffect, useState, ReactNode, type JSX } from 'react';
+import { getAuth, onAuthStateChanged, User as FirebaseUser } from 'firebase/auth';
+import { doc, getDoc } from 'firebase/firestore';
+import firebase_app from '@/firebase/config';
+import { db } from '@/firebase/config';
+import { User } from '@/types/user';  // Import your User type
+import { Skeleton, Box, Typography } from '@mui/joy';
+import Image from 'next/image';
 
-import { createContext, useContext, useEffect, useState } from 'react';
-import { Session, User as SupabaseAuthUser } from '@supabase/supabase-js';
-import { supabase } from '@/Supabase/supabaseClient';
-import { checkEmailExists, createUser, addNewUser } from '@/services/UserService';
+const auth = getAuth(firebase_app);
 
-interface AuthContextProps {
-  user: SupabaseAuthUser | null;
-  session: Session | null;
+interface AuthContextType {
+  user: User | null;
+  refreshUser: (email: string) => Promise<void>;
 }
 
-const AuthContext = createContext<AuthContextProps>({
-  user: null,
-  session: null,
-});
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [session, setSession] = useState<Session | null>(null);
-  const [user, setUser] = useState<SupabaseAuthUser | null>(null);
-
-  useEffect(() => {
-    const setupSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      setSession(session);
-      setUser(session?.user ?? null);
-
-      if (session?.user) {
-        const email = session.user.email!;
-        const exists = await checkEmailExists(email);
-        if (!exists) {
-          const metadata = session.user.user_metadata;
-          const firstName = metadata?.full_name?.split(' ')[0] ?? 'User';
-          const lastName = metadata?.full_name?.split(' ')[1] ?? '';
-          const username = metadata?.username ?? email.split('@')[0];
-
-          const newUser = createUser(email, firstName, lastName, username);
-          await addNewUser(newUser);
-        }
-      }
-    };
-
-    setupSession();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, newSession) => {
-      setSession(newSession);
-      setUser(newSession?.user ?? null);
-
-      if (event === 'SIGNED_IN' && newSession?.user) {
-        const email = newSession.user.email!;
-        const exists = await checkEmailExists(email);
-        if (!exists) {
-          const metadata = newSession.user.user_metadata;
-          const firstName = metadata?.full_name?.split(' ')[0] ?? 'User';
-          const lastName = metadata?.full_name?.split(' ')[1] ?? '';
-          const username = metadata?.username ?? email.split('@')[0];
-
-          const newUser = createUser(email, firstName, lastName, username);
-          await addNewUser(newUser);
-        }
-      }
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, []);
-
-  return (
-    <AuthContext.Provider value={{ user, session }}>
-      {children}
-    </AuthContext.Provider>
-  );
+export const useAuthContext = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuthContext must be used within an AuthProvider');
+  }
+  return context;
 };
 
-// ✅ Renamed this hook to match your component usage
-export const useAuthContext = () => useContext(AuthContext);
+interface AuthContextProviderProps {
+  children: ReactNode;
+}
+
+export function AuthContextProvider({ children }: AuthContextProviderProps): JSX.Element {
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
+      if (firebaseUser) {
+        const userDoc = await getDoc(doc(db, 'users', firebaseUser.email!));
+        if (userDoc.exists()) {
+          setUser(userDoc.data() as User);
+        } else {
+          setUser(null);
+        }
+      } else {
+        setUser(null);
+      }
+      setLoading(false);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const refreshUser = async (email: string) => {
+    const userDoc = await getDoc(doc(db, 'users', email));
+    if (userDoc.exists()) {
+      setUser(userDoc.data() as User);
+    }
+  };
+
+  return (
+    <AuthContext.Provider value={{ user, refreshUser }}>
+      {loading ? (
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '100vh',
+            position: 'relative',
+          }}
+        >
+          <Skeleton sx={{ width: '100%', height: '100vh', position: 'absolute', top: 0, left: 0, zIndex: 1 }} />
+          <Box
+            sx={{
+              zIndex: 2,
+              textAlign: 'center',
+            }}
+          >
+            <Image src="/logo.svg" alt="Logo" width={170} height={100} />
+            <Typography level="title-md" sx={{ marginTop: 2 }}>
+              Loading...
+            </Typography>
+          </Box>
+        </Box>
+      ) : (
+        children
+      )}
+    </AuthContext.Provider>
+  );
+}

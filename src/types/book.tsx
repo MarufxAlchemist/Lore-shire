@@ -3,9 +3,7 @@ export type Title = string;
 export type Author = string;
 
 export type Category = 
-    | "Academics"
     | "Adventure"
-    | "Art"
     | "Biography"
     | "Children's"
     | "Classics"
@@ -14,10 +12,8 @@ export type Category =
     | "Crime"
     | "Drama"
     | "Fantasy"
-    | "Film & TV"
     | "Historical Fiction"
     | "Horror"
-    | "Magzines"
     | "Mystery"
     | "Non-fiction"
     | "Poetry"

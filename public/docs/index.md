@@ -6,7 +6,7 @@ Or you can read the introduction below too!
 ---
 
 # Table of Contents
-- [What is *Lore-shire*?](#what-is-Lore-shire?)
+- [What is *Lore shire*?](#what-is-Lore shire)
 - [Origin](#origin)
 - [Features](#features)
   - [User Profiles](#user-profiles)

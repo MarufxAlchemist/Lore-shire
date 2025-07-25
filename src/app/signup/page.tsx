@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from 'next/navigation';
-import signUp from '@/Supabase/auth/signUp';
+import signUp from "@/firebase/(auth)/signup";
 import Button from '@mui/joy/Button';
 import Link from '@mui/joy/Link';
 import Grid from '@mui/joy/Grid';
@@ -17,7 +17,7 @@ import theme from "@/theme";
 import { CssBaseline, FormHelperText } from "@mui/joy";
 import FormControl from "@mui/joy/FormControl";
 import { checkEmailExists, checkUsernameExists } from "@/services/UserService";
-//import { FirebaseError } from '@firebase/util'
+import { FirebaseError } from '@firebase/util'
 
 const debounce = (func: Function, delay: number) => {
     let debounceTimer: NodeJS.Timeout;
@@ -56,19 +56,18 @@ function Page() {
             return;
         }
 
-        if (error) {
+        if (error instanceof FirebaseError) {
+            // Display and log any sign-up errors
             console.log(error);
-            setError(error.message || "An unexpected error occurred");
-
-            if (error.message.includes("password")) {
+            setError(error.message);
+            if (error.code === 'auth/weak-password')
                 setAlert({ show: true, success: false, message: 'Password should have at least 6 characters.' });
-            } else if (error.message.includes("email")) {
-                setAlert({ show: true, success: false, message: 'Please use a valid or unused email address.' });
-            } else if (error.message.includes("username")) {
+            if (error.code === 'auth/invalid-email')
+                setAlert({ show: true, success: false, message: 'Please use a valid email address.' }); 
+            if (error.code === 'auth/email-already-in-use')
+                setAlert({ show: true, success: false, message: 'Account with email already exists.' });
+            if (error.code === 'auth/username-already-exists')
                 setAlert({ show: true, success: false, message: 'Username is already taken.' });
-            } else {
-                setAlert({ show: true, success: false, message: error.message });
-            }
             return;
         }
 
@@ -127,8 +126,8 @@ function Page() {
                 >
                     <Link href="/">
                         <Image
-                            src="/Lore-shire.svg"
-                            alt="Loreshire Logo"
+                            src="/logo.svg"
+                            alt="Logo"
                             width={350}
                             height={150}
                             priority
