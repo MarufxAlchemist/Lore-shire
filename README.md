@@ -19,7 +19,7 @@
 # Lore shire
 <img src="public/Lore-shire.svg" alt="Loreshire Logo" width="170" height="100" />
 
-## What is ***Lore shire***?
+## What is ***Lore shire***? the things you should know about book exchange
 
 ***Lore shire*** is a Peer-to-Peer (P2P) Book Exchange Platform. It is designed to create a seamless and community-driven solution for book enthusiasts to share and exchange physical books.
 
