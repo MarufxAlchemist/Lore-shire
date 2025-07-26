@@ -147,7 +147,7 @@ export default function AddBook() {
         // Hide the alert after a timeout
         setTimeout(() => {
             setAlert({ show: false, success: false, message: '' });
-        }, 5000);  // 5000 ms = 5 seconds
+        }, 5000);  // 5000 ms = 5 sec
     };    
 
     return (
