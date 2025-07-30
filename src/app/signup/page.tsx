@@ -57,7 +57,6 @@ function Page() {
         }
 
         if (error instanceof FirebaseError) {
-            // Display and log any sign-up errors
             console.log(error);
             setError(error.message);
             if (error.code === 'auth/weak-password')
