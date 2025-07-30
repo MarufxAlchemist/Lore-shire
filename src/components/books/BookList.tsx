@@ -8,7 +8,7 @@ import BookSearch from "@/features/search/components/BookSearch";
 
 export default function BookList() {
   const [books, setBooks] = useState<Book[]>([]); // State to store the list of books
-  const [loading, setLoading] = useState(true); // Loading state
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Fetch all books on component mount
