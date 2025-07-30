@@ -22,7 +22,6 @@ function Page(): JSX.Element {
     }
   }, [user, router]);
 
-  // Convert user.chats (Record<string, ChatProps>) to an array of chatIDs
   const chatsArray = user?.chats ? Object.values(user.chats) : [];
 
   return (
