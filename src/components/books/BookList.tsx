@@ -19,7 +19,7 @@ export default function BookList() {
       } catch (error) {
         console.error('Error fetching books:', error);
       } finally {
-        setLoading(false); // Stop loading indicator
+        setLoading(false);
       }
     }
     
