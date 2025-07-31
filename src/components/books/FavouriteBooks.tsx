@@ -14,7 +14,7 @@ export default function FavouriteBooks() {
     // Fetch all books on component mount
     async function fetchBooks() {
       try {
-        const bookList = await getAllBooks(); // Call getAllBooks to get the data
+        const bookList = await getAllBooks();
         setBooks(bookList); // Update state with the book data
       } catch (error) {
         console.error('Error fetching books:', error);
