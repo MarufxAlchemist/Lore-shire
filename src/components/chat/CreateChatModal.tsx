@@ -21,7 +21,7 @@ const CreateChat: React.FC<CreateChatProps> = ({ user, open, onClose, setSelecte
         success: false,
         message: '',
     });
-    const router = useRouter(); // useRouter hook to navigate
+    const router = useRouter();
 
     const handleSelectFriend = (value: string | null) => {
         setFriendName(value || '');
