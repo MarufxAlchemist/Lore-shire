@@ -326,7 +326,7 @@ export default function MyProfile() {
                                     <FormControl>
                                         <FormLabel>I am looking for these genres of books:</FormLabel>
                                             <Autocomplete
-                                                multiple  // Allow multiple selections
+                                                multiple
                                                 size="sm"
                                                 autoHighlight
                                                 value={lookingFor}
