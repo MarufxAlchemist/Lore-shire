@@ -1,7 +1,7 @@
 export type BookId = string;
 export type Title = string;
 export type Author = string;
-
+//category is a union type representing different book categories
 export type Category = 
     | "Adventure"
     | "Biography"
