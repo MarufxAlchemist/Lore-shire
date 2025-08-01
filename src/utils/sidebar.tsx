@@ -11,7 +11,7 @@ export function openSidebar() {
     document.documentElement.style.setProperty('--SideNavigation-slideIn', '1');
   }
 }
-
+//export function isSidebarOpen()
 export function toggleSidebar() {
   if (typeof window !== 'undefined' && typeof document !== 'undefined') {
     const slideIn = window
