@@ -148,7 +148,7 @@ export async function sendMessage(chatId: string, receiver: string, sender: stri
         });
     } catch (error) {
         console.error("Error sending message:", error);
-        throw error; // Rethrow the error for handling in the UI or caller function
+        throw error;
     }
 }
 
