@@ -217,7 +217,7 @@ export async function retrieveChatProps(chatId: string): Promise<ChatProps> {
         return record.data() as ChatProps;
     } catch (error) {
         console.error("Error retrieving chat:", error);
-        throw error; // Rethrow the error for handling in the UI or caller function
+        throw error;
     }
 }
 
