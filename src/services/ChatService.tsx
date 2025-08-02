@@ -176,7 +176,6 @@ export async function getTotalUnreadMessages(userEmail: string): Promise<number>
       // Retrieve all chats for the user
       const chats = await retrieveChats(userEmail);
   
-      // Initialize total unread count
       let totalUnread = 0;
   
       // Iterate through each chat to count unread messages
