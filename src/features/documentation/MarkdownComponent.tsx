@@ -4,7 +4,6 @@ import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
 // You can also use
 // import JoyuiMarkdown from 'joyui-markdown';
-// But the first approach is recommended.
 
 interface props {
     markdownData: string
