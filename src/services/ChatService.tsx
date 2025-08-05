@@ -122,7 +122,6 @@ export async function updateChatRecords(userEmail: string, chatId: string) {
     try {
         const docRef = doc(db, "users", userEmail as string);
 
-        // Add the new chat to the array of chats in the user's document
         await updateDoc(docRef, {
             chats: arrayUnion(chatId),
         });
@@ -142,6 +141,7 @@ export async function sendMessage(chatId: string, receiver: string, sender: stri
         receiver: receiver,
         messageText: message
     };
+    
     try {
         await updateDoc(doc(db, "chats", chatId as string), {
             messages: arrayUnion(messageData),
