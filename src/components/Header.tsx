@@ -6,7 +6,7 @@ import Sheet from '@mui/joy/Sheet';
 import GlobalStyles from '@mui/joy/GlobalStyles';
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded';
 import { toggleSidebar } from '@/utils/sidebar';
-
+// import { useAuthContext } from '@/context/AuthContext';
 export default function Header() {
   return (
     <Sheet
