@@ -10,7 +10,7 @@ import BookList from "@/components/books/BookList";
 
 const Dashboard: React.FC = () => {
 
-    const {user} = useAuthContext() as { user: any }; // Use 'as' to assert the type as { user: any }
+    const {user} = useAuthContext() as { user: any }; // Adjust the type as necessary
 
 
     return (
