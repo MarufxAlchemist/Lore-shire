@@ -4,7 +4,7 @@ import { getAuth, onAuthStateChanged, User as FirebaseUser } from 'firebase/auth
 import { doc, getDoc } from 'firebase/firestore';
 import firebase_app from '@/firebase/config';
 import { db } from '@/firebase/config';
-import { User } from '@/types/user';  // Import your User type
+import { User } from '@/types/user';  // Assuming you have a User type defined in your types folder
 import { Skeleton, Box, Typography } from '@mui/joy';
 import Image from 'next/image';
 
