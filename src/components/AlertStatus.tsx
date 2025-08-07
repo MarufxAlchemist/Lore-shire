@@ -5,7 +5,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 
 export interface SignInAlertProps {
   success: boolean;
-  message: string; // Add message prop
+  message: string;
 }
 
 const AlertStatus: React.FC<SignInAlertProps> = ({ success, message }) => {
