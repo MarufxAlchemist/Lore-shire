@@ -13,7 +13,7 @@ export default function Interest(props: FormControlProps) {
     >
       <FormLabel>Interests</FormLabel>
       <Autocomplete
-        multiple  // Enable multiple selections
+        multiple
         size="sm"
         autoHighlight
         defaultValue={[]} // Set default value as an empty array for multiple selections
