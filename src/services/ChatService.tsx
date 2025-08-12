@@ -151,7 +151,7 @@ export async function sendMessage(chatId: string, receiver: string, sender: stri
         throw error;
     }
 }
-
+// Function to mark a message as read
 export async function markMessageAsRead(chatId: string, receiver: string) {
     try {
         const chatData = await retrieveChatProps(chatId);
