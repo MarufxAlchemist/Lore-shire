@@ -14,7 +14,7 @@ const MarkdownComponent: React.FC<props> =
         return (
             <JoyuiMarkdown
                 overrides={{
-                    ...getOverrides({}), // This will keep the other default overrides.
+                    ...getOverrides({}),
                     ol: {
                         component: List,
                         props: {
