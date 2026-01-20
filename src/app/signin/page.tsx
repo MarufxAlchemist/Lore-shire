@@ -80,10 +80,10 @@ function Page(): JSX.Element {
                 >
                     <Link href="/">
                         <Image
-                            src="/Lore-shire.svg"
-                            alt="Logo"
-                            width={200}
-                            height={85}
+                            src="/loreshire-logo.png"
+                            alt="Loreshire Logo"
+                            width={180}
+                            height={240}
                         />
                     </Link>
 
