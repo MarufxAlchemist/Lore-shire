@@ -30,7 +30,7 @@ function Page(): JSX.Element {
     const router = useRouter();
 
     // Handle form submission
-    const handleForm = async (event: { preventDefault: () => void }) => {
+    const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         // Attempt to sign in with provided email and password

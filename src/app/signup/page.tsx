@@ -62,7 +62,7 @@ function Page() {
             if (error.code === 'auth/weak-password')
                 setAlert({ show: true, success: false, message: 'Password should have at least 6 characters.' });
             if (error.code === 'auth/invalid-email')
-                setAlert({ show: true, success: false, message: 'Please use a valid email address.' }); 
+                setAlert({ show: true, success: false, message: 'Please use a valid email address.' });
             if (error.code === 'auth/email-already-in-use')
                 setAlert({ show: true, success: false, message: 'Account with email already exists.' });
             if (error.code === 'auth/username-already-exists')
@@ -125,10 +125,10 @@ function Page() {
                 >
                     <Link href="/">
                         <Image
-                            src="/logo.svg"
-                            alt="Logo"
-                            width={350}
-                            height={150}
+                            src="/loreshire-logo.png"
+                            alt="Loreshire Logo"
+                            width={180}
+                            height={240}
                             priority
                         />
                     </Link>
