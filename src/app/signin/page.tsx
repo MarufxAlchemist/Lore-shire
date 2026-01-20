@@ -1,7 +1,7 @@
 'use client'
 
 import signIn from "@/firebase/(auth)/signIn";
-import {useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState, type JSX } from "react";
 import AlertStatus from "@/components/AlertStatus";
 import * as React from 'react';
@@ -12,10 +12,10 @@ import Container from '@mui/material/Container';
 import Input from "@mui/joy/Input";
 import Image from "next/image";
 import Button from "@mui/joy/Button";
-import {CssVarsProvider} from '@mui/joy/styles';
+import { CssVarsProvider } from '@mui/joy/styles';
 import theme from "@/theme";
 import Stack from "@mui/joy/Stack";
-import {CssBaseline} from "@mui/joy";
+import { CssBaseline } from "@mui/joy";
 import { FirebaseError } from '@firebase/util'
 
 function Page(): JSX.Element {
@@ -34,7 +34,7 @@ function Page(): JSX.Element {
         event.preventDefault();
 
         // Attempt to sign in with provided email and password
-        const {result, error} = await signIn(email, password);
+        const { result, error } = await signIn(email, password);
 
         if (error instanceof FirebaseError) {
             // Display and log any sign-in errors
@@ -56,7 +56,7 @@ function Page(): JSX.Element {
 
         // Sign in successful
         console.log(result);
-        setAlert({show: true, success: true, message: 'Sign in successful!'});
+        setAlert({ show: true, success: true, message: 'Sign in successful!' });
 
         // Redirect to the admin page
         // Typically you would want to redirect them to a protected page an add a check to see if they are admin or
@@ -66,7 +66,7 @@ function Page(): JSX.Element {
 
     return (
         <CssVarsProvider theme={theme}>
-            <CssBaseline/>
+            <CssBaseline />
             <Container component="main" maxWidth="xs">
 
 
@@ -82,8 +82,8 @@ function Page(): JSX.Element {
                         <Image
                             src="/Lore-shire.svg"
                             alt="Logo"
-                            width={350}
-                            height={150}
+                            width={200}
+                            height={85}
                         />
                     </Link>
 
@@ -92,7 +92,7 @@ function Page(): JSX.Element {
                     </Typography>
 
                     {(error || alert) && (
-                        <Box sx={{mt: 2, width: "80%"}}>
+                        <Box sx={{ mt: 2, width: "80%" }}>
                             {alert.show && <AlertStatus success={alert.success} message={alert.message} />}
                         </Box>
                     )}
@@ -119,7 +119,7 @@ function Page(): JSX.Element {
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Password"
-                            sx={{mt: 2}}
+                            sx={{ mt: 2 }}
                         />
 
                         <div className="grid text-center gap-5 lg:text-center mt-5 mb-5">
@@ -136,11 +136,11 @@ function Page(): JSX.Element {
                             spacing={1}
                         >
                             <Link href="#"
-                                  level="body-sm">
+                                level="body-sm">
                                 Forgot password?
                             </Link>
                             <Link href="/signup"
-                                  level="body-sm">
+                                level="body-sm">
                                 {"Sign up"}
                             </Link>
                         </Stack>
