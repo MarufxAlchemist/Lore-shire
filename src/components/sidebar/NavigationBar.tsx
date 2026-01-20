@@ -171,7 +171,7 @@ const NavigationBar: React.FC = () => {
         </Box>
 
         <List variant="plain">
-          <ListItem sx={{ mb: 2 }}>
+          <ListItem sx={{ mb: 2, display: 'flex', justifyContent: 'center' }}>
             <Image
               className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70]"
               src="/loreshire-logo.png"
