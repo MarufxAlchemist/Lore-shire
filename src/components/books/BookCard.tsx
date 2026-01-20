@@ -28,16 +28,16 @@ type BookCardProps = Book & {
 };
 
 export default function BookCard(props: BookCardProps) {
-  const { 
-    category, 
-    title, 
-    author, 
-    liked = false, 
-    image, 
-    location, 
-    rating, 
-    ownerUsername, 
-    onLike, 
+  const {
+    category,
+    title,
+    author,
+    liked = false,
+    image,
+    location,
+    rating,
+    ownerUsername,
+    onLike,
   } = props;
 
   const { user } = useAuthContext() as { user: User };
@@ -90,14 +90,23 @@ export default function BookCard(props: BookCardProps) {
             marginRight: 2,
           }}
         >
-          <img alt={title} src={image} style={{ objectFit: 'cover' }} />
+          <img
+            alt={title}
+            src={image}
+            style={{ objectFit: 'cover' }}
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.onerror = null; // Prevent infinite loop
+              target.src = '/blank.svg'; // Fallback to blank placeholder
+            }}
+          />
         </AspectRatio>
 
         <CardContent sx={{ flex: 1 }}>
           <Stack spacing={1} alignItems="flex-start">
             <Chip variant='outlined'>{category}</Chip>
             <Typography level="title-md" noWrap>
-                {title}
+              {title}
             </Typography>
             <Typography level="body-sm" sx={{ fontWeight: '600' }} noWrap>
               by {author}
@@ -121,13 +130,13 @@ export default function BookCard(props: BookCardProps) {
             <FavoriteRoundedIcon />
           </IconButton>
 
-          <Box 
+          <Box
             sx={{ display: "flex", justifyContent: "right" }}
             component={Link} // Change to Link for user profile
             href={ownerUsername ? `/user/${ownerUsername}` : '/home'}
           >
             <Typography level="body-xs" sx={{ color: 'text.tertiary' }} noWrap>
-              Listed by 
+              Listed by
             </Typography>
             <Typography level="title-sm" paddingLeft={1}>{ownerUsername}</Typography>
           </Box>
@@ -140,7 +149,7 @@ export default function BookCard(props: BookCardProps) {
 
           <Box sx={{ display: "flex", justifyContent: "right" }}>
             {owner && user && owner.username !== user.username ? (
-              <Tooltip title={`Chat with ${ownerUsername}`} arrow> 
+              <Tooltip title={`Chat with ${ownerUsername}`} arrow>
                 <Link href="/messages" passHref>
                   <Button
                     variant="soft"
@@ -158,11 +167,11 @@ export default function BookCard(props: BookCardProps) {
         </Box>
 
         {owner && (
-          <ChatToExchange 
+          <ChatToExchange
             user={user}
-            open={openCreateChat} 
-            onClose={handleCloseCreateChat} 
-            setSelectedChat={() => {}} 
+            open={openCreateChat}
+            onClose={handleCloseCreateChat}
+            setSelectedChat={() => { }}
             owner={owner}
           />
         )}
