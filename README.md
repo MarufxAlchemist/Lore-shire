@@ -16,7 +16,7 @@
 
 ---
 
-# Lore shire
+# Lore Shire
 <img src="public/Lore-shire.svg" alt="Loreshire Logo" width="170" height="100" />
 
 ## What is ***Lore shire***? the things you should know about book exchange
@@ -98,6 +98,7 @@ Frontend
 
 Database
 - Firebase
+- Supabase (past)
 
 <br />
 
