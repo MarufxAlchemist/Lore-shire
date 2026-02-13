@@ -217,3 +217,4 @@ Database
 6. **Sustainability Dashboard**
    - Create a dashboard that tracks the environmental impact of book exchanges (e.g., reduction in waste, carbon footprint savings).
 
+End of Document
