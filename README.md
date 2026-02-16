@@ -63,8 +63,8 @@ The idea stems from the realization that many books are often left unread on she
       <img width="1449" alt="Screenshot 2024-09-29 at 03 51 44" src="https://github.com/user-attachments/assets/d6d97630-af9d-4264-ae51-a16dc498481b">
 
 ### Others 
-- [X] User-friendly interface with easy navigability
-- [X] Embedded user guide to guide users along
+- [X] User-friendly interface with easy navigability.
+- [X] Embedded user guide to guide users along.
  
 ### Upcoming features:
 - [ ] A more robust search function with drop-down options based on genre, ratings etc
