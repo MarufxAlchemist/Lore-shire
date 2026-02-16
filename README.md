@@ -49,7 +49,7 @@ The idea stems from the realization that many books are often left unread on she
 - [X] Start chatting! The messaging function shows the number of unread messages too.
       <img width="1470" alt="Screenshot 2024-09-29 at 03 45 37" src="https://github.com/user-attachments/assets/91d6e5b7-9a48-497b-b3ea-afcbb4e69c3e">
 
-- [X] Mark your book as exchanged once it's exchanged, and you can see it in the "Exchanged books" page.
+- [X] Mark your book as exchanged once it's exchanged, and you can see it in the "Exchanged-books" page.
 
      <img width="229" alt="Screenshot 2024-09-29 at 03 48 05" src="https://github.com/user-attachments/assets/cb61323f-c8a9-4cb1-b7dc-29a7dc2acc2c">
      <img width="215" alt="Screenshot 2024-09-29 at 03 48 18" src="https://github.com/user-attachments/assets/bc8e33ac-2c7a-47ec-98c1-ed1018cdb668">
