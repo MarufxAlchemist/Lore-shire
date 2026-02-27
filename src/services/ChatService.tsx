@@ -8,7 +8,7 @@ import { retrieveUser } from "./UserService";
 const db = getFirestore(firebase_app);
 
 function generateChatId(): string {
-    return uuidv4(); // Generate a random UUID v4
+    return uuidv4(); // Generate a random UUID v4.
 }
 
 export async function retrieveChats(userEmail: string): Promise<ChatProps[]> {
@@ -53,7 +53,7 @@ export async function retrieveAllReceivers(userEmail: string): Promise<string[]>
         return receiversUsernames;
     } catch (error) {
         console.error("Error retrieving all receivers:", error);
-        throw error; // Rethrow the error for handling in the UI or caller function
+        throw error; // Rethrow the error for handling in the UI or caller function.
     }
 }
 
