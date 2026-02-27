@@ -67,10 +67,10 @@ The idea stems from the realization that many books are often left unread on she
 - [X] Embedded user guide to guide users along.
  
 ### Upcoming features:
-- [ ] A more robust search function with drop-down options based on genre, ratings etc
-- [ ] Leveraging AI to provide personalized book recommendations
-- [ ] Forum page for like-minded users to share their knowledge, opionions, and book recommendations
-- [ ] A leaderboard showing the most number of books exchanged and total number exchanged on the platform
+- [ ] A more robust search function with drop-down options based on genre, ratings etc.
+- [ ] Leveraging AI to provide personalized book recommendations.
+- [ ] Forum page for like-minded users to share their knowledge, opionions, and book recommendations.
+- [ ] A leaderboard showing the most number of books exchanged and total number exchanged on the platform.
 
 Refer to [Project plan and milestone for future extensions](#project-plan-and-milestone-for-future-extensions) for a more detailed plan!
 
