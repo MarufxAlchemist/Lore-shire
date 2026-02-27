@@ -44,7 +44,7 @@ export default function BookList() {
           <BookCard key={index} {...book} /> // Render each book as a BookCard
         ))
       ) : (
-        <div>No books available.</div> // Message when no books are found
+        <div>No books available.</div> // Message when no books are found.
       )}
     </div>
   );
