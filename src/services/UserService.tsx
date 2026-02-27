@@ -60,7 +60,7 @@ const filterRecordByValue = (record:  Record<string, string>,
                              target: string): Record<string, string> => {
     const filteredRecord: Record<string, string> = {};
 
-    // Iterate through each key-value pair in the record
+    // Iterate through each key-value pair in the record.
     Object.entries(record).forEach(([key, value]) => {
         // Apply the filter condition.
         if (value == target) {
