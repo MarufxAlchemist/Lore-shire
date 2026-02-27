@@ -15,7 +15,7 @@ export default function BookList() {
     async function fetchBooks() {
       try {
         const bookList = await getAllBooks(); // Call getAllBooks to get the data
-        setBooks(bookList); // Update state with the book data
+        setBooks(bookList); // Update state with the book data.
       } catch (error) {
         console.error('Error fetching books:', error);
       } finally {
