@@ -8,12 +8,12 @@ import Box from '@mui/joy/Box';
 import AddBook from "@/components/books/AddBook";
 
 function Page(): JSX.Element {
-    // Access the user object from the authentication context
+    // Access the user object from the authentication context.
     const {user} = useAuthContext() as { user: any }; // Use 'as' to assert the type as { user: any }
     const router = useRouter();
 
     useEffect(() => {
-        // Redirect to the home page if the user is not logged in
+        // Redirect to the home page if the user is not logged in.
         if (user == null) {
             router.push("/");
         }
