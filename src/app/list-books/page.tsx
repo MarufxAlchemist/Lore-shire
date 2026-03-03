@@ -17,7 +17,7 @@ function Page(): JSX.Element {
         if (user == null) {
             router.push("/");
         }
-    }, [user, router]); // Include 'router' in the dependency array to resolve eslint warning
+    }, [user, router]); // Include 'router' in the dependency array to resolve eslint warning.
 
     return (
         <Box sx={{display: 'flex'}}>
