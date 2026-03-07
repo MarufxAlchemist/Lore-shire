@@ -97,8 +97,8 @@ Frontend
 - Typescript (frontend language)
 
 Database
-- Firebase
-- Supabase (past)
+- Firebase.
+- Supabase (past).
 
 <br />
 
