@@ -8,7 +8,7 @@ interface AddFriendButtonProps {
     currentUser: string;
     otherUser: string;
     relationship: string;
-    onRelationshipChange: () => void; // Callback to trigger refresh
+    onRelationshipChange: () => void; // Callback to trigger refresh.
 }
 
 const AddFriendButton: React.FC<AddFriendButtonProps> = ({
