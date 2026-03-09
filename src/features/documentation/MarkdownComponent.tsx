@@ -2,7 +2,7 @@ import React from 'react';
 import {getOverrides, JoyuiMarkdown} from 'joyui-markdown';
 import List from "@mui/joy/List";
 import ListItem from "@mui/joy/ListItem";
-// You can also use
+// You can also use.
 // import JoyuiMarkdown from 'joyui-markdown';
 
 interface props {
