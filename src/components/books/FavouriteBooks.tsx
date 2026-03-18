@@ -7,7 +7,7 @@ import { Typography } from '@mui/joy';
 import BookSearch from "@/features/search/components/BookSearch";
 
 export default function FavouriteBooks() {
-  const [books, setBooks] = useState<Book[]>([]); // State to store the list of books
+  const [books, setBooks] = useState<Book[]>([]); // State to store the list of books.
   const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
