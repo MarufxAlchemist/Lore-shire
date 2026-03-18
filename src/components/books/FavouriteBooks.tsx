@@ -15,7 +15,7 @@ export default function FavouriteBooks() {
     async function fetchBooks() {
       try {
         const bookList = await getAllBooks();
-        setBooks(bookList); // Update state with the book data
+        setBooks(bookList); // Update state with the book data.
       } catch (error) {
         console.error('Error fetching books:', error);
       } finally {
