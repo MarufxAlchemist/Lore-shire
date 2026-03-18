@@ -11,7 +11,7 @@ export default function FavouriteBooks() {
   const [loading, setLoading] = useState(true); // Loading state
 
   useEffect(() => {
-    // Fetch all books on component mount
+    // Fetch all books on component mount.
     async function fetchBooks() {
       try {
         const bookList = await getAllBooks();
