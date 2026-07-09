@@ -2,22 +2,76 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;1,400&display=swap');
+
+/* ── Loreshire Theme Variables ── */
 :root {
-  --foreground-rgb: 24, 24, 27;
-  --background-start-rgb: 255, 255, 255;
-  --background-end-rgb: 255, 255, 255;
+  --ls-gold:       rgba(201,162,39,0.7);
+  --ls-gold-dim:   rgba(201,162,39,0.18);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 24, 24, 27;
-    --background-end-rgb: 24, 24, 27;
-  }
-}
-
+/* ── BASE BODY (dark is default) ── */
 body {
-  color: rgb(var(--foreground-rgb));
+  margin: 0;
+  padding: 0;
+  font-family: 'Crimson Text', serif;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  transition: background-image 0.4s ease, background-color 0.4s ease;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.4s ease;
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── DARK MODE ── */
+html[data-joy-color-scheme="dark"] body,
+html:not([data-joy-color-scheme]) body {
+  background-color: #060a07;
+  background-image: url('/cozy_forest_bg.png');
+  color: rgba(230, 215, 185, 0.9);
+}
+
+html[data-joy-color-scheme="dark"] body::before,
+html:not([data-joy-color-scheme]) body::before {
+  background: radial-gradient(ellipse at center, rgba(6,12,6,0.3) 0%, rgba(4,9,4,0.68) 100%);
+}
+
+/* ── LIGHT MODE ── */
+html[data-joy-color-scheme="light"] body {
+  background-color: #e8dfc8;
+  background-image: url('/light_forest_bg.png');
+  color: #2c2410;
+}
+
+html[data-joy-color-scheme="light"] body::before {
+  background: radial-gradient(ellipse at center, rgba(255,248,230,0.15) 0%, rgba(220,200,160,0.35) 100%);
+}
+
+/* ── Sidebar glass adapts to mode ── */
+html[data-joy-color-scheme="light"] .Sidebar {
+  background: rgba(240, 228, 196, 0.55) !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  border-right: 1px solid rgba(160,120,40,0.2) !important;
+}
+
+html[data-joy-color-scheme="dark"] .Sidebar {
+  background: rgba(10, 18, 10, 0.55) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border-right: 1px solid rgba(201,162,39,0.12) !important;
 }
 
 @layer utilities {

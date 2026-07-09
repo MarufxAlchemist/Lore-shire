@@ -28,9 +28,15 @@ const BookPicture = () => {
     <div>
       <img 
         id="bookPicture" 
-        src={user?.book ? bookUrl : "/blank.svg"}  
+        src={(user?.book && bookUrl) ? bookUrl : "/no-image.svg"}  
         alt="book" 
-        style={{ objectFit: 'cover', width: '100%', height: '100%' }} 
+        style={{ objectFit: 'cover', width: '100%', height: '100%', padding: (user?.book && bookUrl) ? '0' : '20px' }}
+        onError={(e) => {
+          const target = e.target as HTMLImageElement;
+          target.onerror = null;
+          target.src = '/no-image.svg';
+          target.style.padding = '20px';
+        }}
       />
     </div>
   );

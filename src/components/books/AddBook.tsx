@@ -292,13 +292,14 @@ export default function AddBook() {
                                         objectFit="cover"
                                     >
                                         <img
-                                            src={image ? image : "/blank.svg"}
-                                            alt=""
+                                            src={image ? image : "/no-image.svg"}
+                                            alt="Book Preview"
                                             style={{
                                                 width: '100%',
                                                 height: '100%',
                                                 objectFit: 'cover',
                                                 borderRadius: '0%',
+                                                padding: image ? '0' : '20px'
                                             }}
                                         />
                                         <BookPicture/>

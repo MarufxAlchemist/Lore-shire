@@ -82,22 +82,23 @@ export default function BookCard(props: BookCardProps) {
           },
         }}
       >
-        <AspectRatio
+          <AspectRatio
           ratio="1"
           sx={{
-            minWidth: { sm: 120, md: 160 },
+            minWidth: { xs: 120, sm: 120, md: 160 },
             maxHeight: '160px',
             marginRight: 2,
           }}
         >
           <img
             alt={title}
-            src={image}
-            style={{ objectFit: 'cover' }}
+            src={image || '/no-image.svg'}
+            style={{ objectFit: 'cover', width: '100%', height: '100%', padding: image ? '0' : '20px' }}
             onError={(e) => {
               const target = e.target as HTMLImageElement;
               target.onerror = null; // Prevent infinite loop
-              target.src = '/blank.svg'; // Fallback to blank placeholder
+              target.src = '/no-image.svg'; // Fallback to no-image placeholder
+              target.style.padding = '20px';
             }}
           />
         </AspectRatio>

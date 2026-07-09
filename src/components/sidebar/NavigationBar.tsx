@@ -7,6 +7,7 @@ import ListItem from "@mui/joy/ListItem";
 import ListItemButton, { listItemButtonClasses } from "@mui/joy/ListItemButton";
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import Image from 'next/image';
+import lorshireLogo from '../../../public/loreshire-logo.png';
 import logout from '@/firebase/(auth)/signout';
 import Avatar from "@mui/joy/Avatar";
 import Box from "@mui/joy/Box";
@@ -132,8 +133,11 @@ const NavigationBar: React.FC = () => {
           display: "flex",
           flexDirection: "column",
           gap: 2,
-          borderRight: "1px solid",
-          borderColor: "divider",
+          borderColor: 'divider',
+          background: 'rgba(10,18,10,0.55)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          borderRight: '1px solid rgba(201,162,39,0.12)',
         }}
       >
         <GlobalStyles
@@ -174,7 +178,7 @@ const NavigationBar: React.FC = () => {
           <ListItem sx={{ mb: 2, display: 'flex', justifyContent: 'center' }}>
             <Image
               className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70]"
-              src="/loreshire-logo.png"
+              src={lorshireLogo}
               alt="Loreshire Logo"
               width={120}
               height={160}

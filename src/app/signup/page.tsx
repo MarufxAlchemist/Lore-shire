@@ -4,20 +4,18 @@ import { useEffect, useState, useCallback } from "react";
 import { useRouter } from 'next/navigation';
 import signUp from "@/firebase/(auth)/signup";
 import Button from '@mui/joy/Button';
-import Link from '@mui/joy/Link';
-import Grid from '@mui/joy/Grid';
 import Box from '@mui/joy/Box';
-import Container from '@mui/joy/Container';
 import AlertStatus from '@/components/AlertStatus';
-import Image from "next/image";
-import Typography from "@mui/joy/Typography";
 import Input from "@mui/joy/Input";
 import { CssVarsProvider } from '@mui/joy/styles';
 import theme from "@/theme";
 import { CssBaseline, FormHelperText } from "@mui/joy";
 import FormControl from "@mui/joy/FormControl";
 import { checkEmailExists, checkUsernameExists } from "@/services/UserService";
-import { FirebaseError } from '@firebase/util'
+import { FirebaseError } from '@firebase/util';
+import LightDarkMode from "@/components/sidebar/LightDarkMode";
+import lorshireLogo from '../../../public/loreshire-logo.png';
+import cozyForestBg from '../../../public/cozy_forest_bg.png';
 
 const debounce = (func: Function, delay: number) => {
     let debounceTimer: NodeJS.Timeout;
@@ -43,14 +41,10 @@ function Page() {
     const [emailError, setEmailError] = useState('');
     const router = useRouter();
 
-    // Handle form submission
     const handleForm = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-
-        // Attempt to sign up with provided email, password, first name, and last name
         const { result, error } = await signUp(email, password, firstName, lastName, username);
 
-        // Check if username contains a dot
         if (username.includes('.')) {
             setUsernameError('Username cannot contain a dot (.)');
             return;
@@ -70,183 +64,306 @@ function Page() {
             return;
         }
 
-        // Sign up successful
         console.log(result);
         setAlert({ show: true, success: true, message: 'Sign up successful!' });
-
-        // Redirect to the home page
         router.push("/home");
-    }
+    };
 
     const checkUsername = useCallback(debounce(async (username: string) => {
         if (!username) return;
         try {
-            const check = await checkUsernameExists(username)
-            check
-                ? setUsernameError("Username is already taken.")
-                : setUsernameError('');
+            const check = await checkUsernameExists(username);
+            check ? setUsernameError("Username is already taken.") : setUsernameError('');
         } catch (error) {
             console.error("Error checking username:", error);
         }
     }, 500), []);
 
-    useEffect(() => {
-        checkUsername(username);
-    }, [username, checkUsername]);
+    useEffect(() => { checkUsername(username); }, [username, checkUsername]);
 
     const checkEmail = useCallback(debounce(async (email: string) => {
         if (!email) return;
         try {
-            const check = await checkEmailExists(email)
-            check
-                ? setEmailError("Account with email already made.")
-                : setEmailError('');
+            const check = await checkEmailExists(email);
+            check ? setEmailError("Account with email already made.") : setEmailError('');
         } catch (error) {
             console.error("Error checking email:", error);
         }
     }, 500), []);
 
-    useEffect(() => {
-        checkEmail(email);
-    }, [email, checkEmail]);
+    useEffect(() => { checkEmail(email); }, [email, checkEmail]);
 
     return (
         <CssVarsProvider theme={theme}>
             <CssBaseline />
-            <Container component="main" maxWidth="xs">
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;1,400&display=swap');
 
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Link href="/">
-                        <Image
-                            src="/loreshire-logo.png"
-                            alt="Loreshire Logo"
-                            width={180}
-                            height={240}
-                            priority
-                        />
-                    </Link>
+                html, body { height: 100%; overflow: hidden; margin: 0; padding: 0; }
 
-                    <Typography level="h3" marginTop={3}>
-                        Sign Up
-                    </Typography>
+                @keyframes fadeInUp {
+                    from { opacity: 0; transform: translateY(16px); }
+                    to   { opacity: 1; transform: translateY(0); }
+                }
 
-                    <Typography level="body-xs">
-                        Note: You cannot change your username/email after signing up.
-                    </Typography>
+                .su-root {
+                    position: fixed;
+                    inset: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-size: cover;
+                    background-position: center;
+                    overflow-y: auto;
+                    padding: 20px 0;
+                    transition: background-image 0.4s ease, background-color 0.4s ease;
+                }
 
-                    {(error || alert) && <
-                        Box sx={{ mt: 2, width: 1 }}>
-                        {alert.show && <AlertStatus success={alert.success} message={alert.message} />}
-                    </Box>
-                    }
+                html[data-joy-color-scheme="dark"] .su-root,
+                html:not([data-joy-color-scheme]) .su-root {
+                    background-color: #060a07;
+                    background-image: url('/cozy_forest_bg.png');
+                }
 
-                    <Box component="form" onSubmit={handleForm}>
-                        <Grid container spacing={2}>
-                            <Grid xs={12} sm={6}>
+                html[data-joy-color-scheme="light"] .su-root {
+                    background-color: #e8dfc8;
+                    background-image: url('/light_forest_bg.png');
+                }
+
+                .su-vignette {
+                    position: fixed;
+                    inset: 0;
+                    background: radial-gradient(ellipse at center, transparent 20%, rgba(4,9,5,0.72) 100%);
+                    pointer-events: none;
+                }
+
+                .su-toggle {
+                    position: fixed;
+                    top: 18px;
+                    right: 22px;
+                    z-index: 10;
+                }
+
+                .su-card {
+                    position: relative;
+                    z-index: 2;
+                    width: min(420px, 92vw);
+                    padding: 28px 32px 32px;
+                    background: rgba(18, 24, 18, 0.45);
+                    backdrop-filter: blur(14px);
+                    -webkit-backdrop-filter: blur(14px);
+                    border: 1px solid rgba(201,162,39,0.14);
+                    border-radius: 16px;
+                    box-shadow: 0 8px 40px rgba(0,0,0,0.55), inset 0 1px 0 rgba(255,255,255,0.04);
+                    animation: fadeInUp 0.9s ease forwards;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .su-logo {
+                    max-height: 100px;
+                    width: auto;
+                    display: block;
+                    margin-bottom: 10px;
+                    filter: drop-shadow(0 0 10px rgba(201,162,39,0.18));
+                }
+
+                .su-ornament {
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    width: 100%;
+                    margin-bottom: 12px;
+                    opacity: 0.4;
+                }
+                .su-orn-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(201,162,39,0.6), transparent); }
+                .su-orn-gem  { width: 6px; height: 6px; background: rgba(201,162,39,0.7); transform: rotate(45deg); }
+
+                .su-title {
+                    font-family: 'Cinzel', serif;
+                    font-size: 1.4rem;
+                    font-weight: 700;
+                    color: #ebd588;
+                    text-shadow: 0 0 14px rgba(201,162,39,0.18);
+                    margin-bottom: 4px;
+                    letter-spacing: 0.05em;
+                }
+
+                .su-note {
+                    font-family: 'Crimson Text', serif;
+                    font-size: 0.82rem;
+                    font-style: italic;
+                    color: rgba(220,200,160,0.5);
+                    margin-bottom: 16px;
+                    text-align: center;
+                }
+
+                .su-input-wrap {
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+
+                .su-row {
+                    display: flex;
+                    gap: 10px;
+                    width: 100%;
+                    margin-bottom: 10px;
+                }
+
+                .su-btn-submit {
+                    width: 100%;
+                    margin-top: 6px;
+                    margin-bottom: 14px;
+                    padding: 11px 0 !important;
+                    background: linear-gradient(135deg, #b89220, #d4ab2a) !important;
+                    border: none !important;
+                    color: #08120a !important;
+                    font-family: 'Cinzel', serif !important;
+                    font-size: 0.82rem !important;
+                    font-weight: 700 !important;
+                    letter-spacing: 0.12em !important;
+                    border-radius: 8px !important;
+                    cursor: pointer;
+                    transition: filter 0.2s ease, transform 0.2s ease !important;
+                }
+                .su-btn-submit:hover:not(:disabled) {
+                    filter: brightness(1.08) !important;
+                    transform: translateY(-1px) !important;
+                }
+
+                .su-link {
+                    font-family: 'Crimson Text', serif;
+                    font-size: 0.9rem;
+                    color: rgba(201,162,39,0.6) !important;
+                    text-decoration: none;
+                    transition: color 0.2s ease;
+                    text-align: right;
+                    display: block;
+                    width: 100%;
+                }
+                .su-link:hover { color: rgba(201,162,39,0.9) !important; }
+            `}</style>
+
+            <div className="su-root">
+                <div className="su-vignette" />
+
+                <div className="su-toggle">
+                    <LightDarkMode />
+                </div>
+
+                <div className="su-card">
+                    <a href="/">
+                        <img src={lorshireLogo.src} alt="Loreshire Logo" className="su-logo" />
+                    </a>
+
+                    <div className="su-ornament">
+                        <div className="su-orn-line" />
+                        <div className="su-orn-gem" />
+                        <div className="su-orn-line" />
+                    </div>
+
+                    <div className="su-title">Create Account</div>
+                    <div className="su-note">Username & email cannot be changed after sign up.</div>
+
+                    {(error || alert) && (
+                        <Box sx={{ mb: 1.5, width: '100%' }}>
+                            {alert.show && <AlertStatus success={alert.success} message={alert.message} />}
+                        </Box>
+                    )}
+
+                    <Box component="form" onSubmit={handleForm} sx={{ width: '100%' }}>
+                        <div className="su-row">
+                            <Input
+                                placeholder="First Name"
+                                autoComplete="given-name"
+                                name="firstName"
+                                required
+                                id="firstName"
+                                autoFocus
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
+                                sx={{ flex: 1, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(201,162,39,0.15)', color: 'rgba(240,220,180,0.9)', '&:focus-within': { borderColor: 'rgba(201,162,39,0.45)' } }}
+                            />
+                            <Input
+                                placeholder="Last Name"
+                                required
+                                id="lastName"
+                                name="lastName"
+                                autoComplete="family-name"
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
+                                sx={{ flex: 1, background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(201,162,39,0.15)', color: 'rgba(240,220,180,0.9)', '&:focus-within': { borderColor: 'rgba(201,162,39,0.45)' } }}
+                            />
+                        </div>
+
+                        <div className="su-input-wrap">
+                            <FormControl>
                                 <Input
-                                    placeholder="First Name"
-                                    autoComplete="given-name"
-                                    name="firstName"
-                                    required
-                                    id="firstName"
-                                    autoFocus
-                                    value={firstName}
-                                    onChange={(e) => setFirstName(e.target.value)}
-                                />
-                            </Grid>
-
-                            <Grid xs={12} sm={6}>
-                                <Input
-                                    placeholder="Last Name"
-                                    required
-                                    id="lastName"
-                                    name="lastName"
-                                    autoComplete="family-name"
-                                    value={lastName}
-                                    onChange={(e) => setLastName(e.target.value)}
-                                />
-                            </Grid>
-
-                            <Grid xs={12}>
-                                <FormControl>
-                                    <Input
-                                        placeholder="Username"
-                                        required
-                                        fullWidth
-                                        id="username"
-                                        name="username"
-                                        autoComplete="username"
-                                        value={username}
-                                        onChange={(e) => setUsername(e.target.value)}
-                                        error={usernameError != ""}
-                                    />
-                                    <FormHelperText>
-                                        {usernameError}
-                                    </FormHelperText>
-                                </FormControl>
-
-                            </Grid>
-
-                            <Grid xs={12}>
-                                <FormControl>
-                                    <Input
-                                        placeholder="Email"
-                                        required
-                                        fullWidth
-                                        id="email"
-                                        name="email"
-                                        autoComplete="email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        error={emailError != ''}
-                                    />
-                                    <FormHelperText>
-                                        {emailError}
-                                    </FormHelperText>
-                                </FormControl>
-                            </Grid>
-
-                            <Grid xs={12}>
-                                <Input
-                                    placeholder="Password"
+                                    placeholder="Username"
                                     required
                                     fullWidth
-                                    name="password"
-                                    type="password"
-                                    id="password"
-                                    autoComplete="new-password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
+                                    id="username"
+                                    name="username"
+                                    autoComplete="username"
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                    error={usernameError !== ""}
+                                    sx={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(201,162,39,0.15)', color: 'rgba(240,220,180,0.9)', '&:focus-within': { borderColor: 'rgba(201,162,39,0.45)' } }}
                                 />
-                            </Grid>
-                        </Grid>
-
-                        <div className="grid text-center gap-5 lg:text-center mt-5 mb-5">
-                            <Button type="submit"
-                                disabled={usernameError !== '' || emailError !== ''}>
-                                Sign up
-                            </Button>
+                                <FormHelperText sx={{ color: 'rgba(220,100,100,0.8)', fontSize: '0.78rem' }}>
+                                    {usernameError}
+                                </FormHelperText>
+                            </FormControl>
                         </div>
-                        <Grid container justifyContent="flex-end">
-                            <Grid>
-                                <Link href="/signin" level="body-sm">
-                                    <Typography level="body-sm" color="primary">
-                                        Already have an account?
-                                    </Typography>
-                                </Link>
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </Box>
 
-            </Container>
+                        <div className="su-input-wrap">
+                            <FormControl>
+                                <Input
+                                    placeholder="Email"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    name="email"
+                                    autoComplete="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    error={emailError !== ''}
+                                    sx={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(201,162,39,0.15)', color: 'rgba(240,220,180,0.9)', '&:focus-within': { borderColor: 'rgba(201,162,39,0.45)' } }}
+                                />
+                                <FormHelperText sx={{ color: 'rgba(220,100,100,0.8)', fontSize: '0.78rem' }}>
+                                    {emailError}
+                                </FormHelperText>
+                            </FormControl>
+                        </div>
+
+                        <div className="su-input-wrap">
+                            <Input
+                                placeholder="Password"
+                                required
+                                fullWidth
+                                name="password"
+                                type="password"
+                                id="password"
+                                autoComplete="new-password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                sx={{ background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(201,162,39,0.15)', color: 'rgba(240,220,180,0.9)', '&:focus-within': { borderColor: 'rgba(201,162,39,0.45)' } }}
+                            />
+                        </div>
+
+                        <Button
+                            type="submit"
+                            disabled={usernameError !== '' || emailError !== ''}
+                            className="su-btn-submit"
+                        >
+                            Sign Up
+                        </Button>
+
+                        <a href="/signin" className="su-link">Already have an account?</a>
+                    </Box>
+                </div>
+            </div>
         </CssVarsProvider>
     );
 }
