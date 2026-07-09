@@ -9,7 +9,7 @@ import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
-import Link from '@mui/joy/Link';
+import Link from 'next/link';
 import Stack from "@mui/joy/Stack";
 import { CssVarsProvider } from '@mui/joy/styles';
 import { CssBaseline } from "@mui/joy";
@@ -215,9 +215,9 @@ function Page(): JSX.Element {
                 </div>
 
                 <div className="si-card">
-                    <a href="/">
+                    <Link href="/">
                         <img src={lorshireLogo.src} alt="Loreshire Logo" className="si-logo" />
-                    </a>
+                    </Link>
 
                     <div className="si-ornament">
                         <div className="si-orn-line" />
@@ -264,8 +264,8 @@ function Page(): JSX.Element {
                         </Button>
 
                         <Stack direction="row" justifyContent="space-between">
-                            <a href="#" className="si-link">Forgot password?</a>
-                            <a href="/signup" className="si-link">Sign up</a>
+                            <Link href="#" className="si-link">Forgot password?</Link>
+                            <Link href="/signup" className="si-link">Sign up</Link>
                         </Stack>
                     </Box>
                 </div>

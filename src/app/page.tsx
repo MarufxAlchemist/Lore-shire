@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import lorshireLogo from '../../public/loreshire-logo.png';
 import cozyForestBg from '../../public/cozy_forest_bg.png';
 
@@ -328,8 +329,8 @@ export default function LandingPage() {
           <p className="ls-subtitle">A Peer-to-Peer Book Exchange Platform for anyone and everyone.</p>
 
           <div className="ls-btns">
-            <a href="/signin" className="ls-btn ls-btn-login">Login</a>
-            <a href="/signup" className="ls-btn ls-btn-signup">Sign Up</a>
+            <Link href="/signin" className="ls-btn ls-btn-login">Login</Link>
+            <Link href="/signup" className="ls-btn ls-btn-signup">Sign Up</Link>
           </div>
         </div>
 

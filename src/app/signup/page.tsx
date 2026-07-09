@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { useEffect, useState, useCallback } from "react";
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import signUp from "@/firebase/(auth)/signup";
 import Button from '@mui/joy/Button';
 import Box from '@mui/joy/Box';
@@ -253,9 +254,9 @@ function Page() {
                 </div>
 
                 <div className="su-card">
-                    <a href="/">
+                    <Link href="/">
                         <img src={lorshireLogo.src} alt="Loreshire Logo" className="su-logo" />
-                    </a>
+                    </Link>
 
                     <div className="su-ornament">
                         <div className="su-orn-line" />
@@ -360,7 +361,7 @@ function Page() {
                             Sign Up
                         </Button>
 
-                        <a href="/signin" className="su-link">Already have an account?</a>
+                        <Link href="/signin" className="su-link">Already have an account?</Link>
                     </Box>
                 </div>
             </div>
