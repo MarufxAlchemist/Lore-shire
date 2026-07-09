@@ -1,6 +1,7 @@
 'use client'
-import Image from "next/image";
+
 import * as React from 'react';
+import lorshireLogo from '../../public/loreshire-logo.png';
 import Button from "@mui/joy/Button";
 import Typography from "@mui/joy/Typography";
 import {CssVarsProvider} from '@mui/joy/styles';
@@ -17,12 +18,10 @@ export default function LandingPage() {
             <Box className="flex min-h-screen flex-col items-center p-20">
 
                 <Box className="relative z flex place-items-center">
-                    <Image
-                        src="/logo.svg"
-                        alt="Logo"
-                        width={400}
-                        height={200}
-                        priority
+                    <img
+                        src={lorshireLogo.src}
+                        alt="Loreshire Logo"
+                        style={{ width: 400, height: 'auto' }}
                     />
                 </Box>
 

@@ -6,7 +6,7 @@ import firebase_app from '@/firebase/config';
 import { db } from '@/firebase/config';
 import { User } from '@/types/user';  // Assuming you have a User type defined in your types folder
 import { Skeleton, Box, Typography } from '@mui/joy';
-import Image from 'next/image';
+import lorshireLogo from '../../public/loreshire-logo.png';
 
 const auth = getAuth(firebase_app);
 
@@ -78,7 +78,7 @@ export function AuthContextProvider({ children }: AuthContextProviderProps): JSX
               textAlign: 'center',
             }}
           >
-            <Image src="/logo.svg" alt="Logo" width={170} height={100} />
+            <img src={lorshireLogo.src} alt="Loreshire Logo" style={{ width: 170, height: 'auto' }} />
             <Typography level="title-md" sx={{ marginTop: 2 }}>
               Loading...
             </Typography>
